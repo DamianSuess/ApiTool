@@ -7,11 +7,11 @@ Ever have an invisible window on your desktop and you can't click in that region
 
 Made one of these back in 1997, and who knew it would come handy again 22 years later
 
-<!--
 |||
 | --- | --- |
-| **License** | [![GitHub license](https://img.shields.io/github/license/DamianSuess/ToolsHub.svg)](https://github.com/DamianSuess/ToolsHub/blob/master/LICENSE) |
+| **License** | [![GitHub license](https://img.shields.io/github/license/DamianSuess/ToolsHub.svg)](https://github.com/DamianSuess/ApiTool/blob/master/LICENSE) |
 
+<!--
 ![Screenshot](docs/ScreenShots/SysTrayShortcuts.png)
 -->
 
