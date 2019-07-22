@@ -1,9 +1,9 @@
 ﻿/* Copyright Xeno Innovations, Inc. 2019
  * Date:    2019-7-22
  * Author:  Damian Suess
- * File:    Win32.cs
+ * File:    User32.cs
  * Description:
- *
+ *  User32.dll
  */
 
 using System;
@@ -33,7 +33,7 @@ namespace Xeno.ApiTool.Api
     {
       SetWindowLong(Handle, GWL_EXSTYLE, GetWindowLong(Handle, GWL_EXSTYLE) | WS_EX_LAYERED);
       SetLayeredWindowAttributes(Handle, 0, Transparency, LWA_ALPHA);
-    }    
+    }
 
     [DllImport("User32.dll")]
     public static extern IntPtr ChildWindowFromPoint(IntPtr hWndParent, POINT p);
@@ -69,11 +69,35 @@ namespace Xeno.ApiTool.Api
     [DllImport("user32.dll", EntryPoint = "GetSystemMetrics")]
     public static extern int GetSystemMetrics(int abc);
 
+    public static string GetText(IntPtr hWnd)
+    {
+      // Allocate correct string length first
+      var length = User32.GetWindowTextLength(hWnd);
+
+      StringBuilder sb = new StringBuilder(length + 1);
+      User32.GetWindowText(hWnd, sb, sb.Capacity);
+      return sb.ToString();
+    }
+
+
+    //public static string GetWindowTextRaw(IntPtr hwnd)
+    //{
+    //  // Allocate correct string length first
+    //  int length = (int)SendMessage(hwnd, WM_GETTEXTLENGTH, IntPtr.Zero, IntPtr.Zero);
+    //  StringBuilder sb = new StringBuilder(length + 1);
+    //
+    //  SendMessage(hwnd, WM_GETTEXT, (IntPtr)sb.Capacity, sb);
+    //  return sb.ToString();
+    //}
+
     [DllImport("user32.dll", EntryPoint = "GetWindowDC")]
     public static extern IntPtr GetWindowDC(Int32 ptr);
 
     [DllImport("user32.dll", EntryPoint = "GetWindowLongA", SetLastError = true)]
     public static extern int GetWindowLong(IntPtr hwnd, int nIndex);
+
+    [DllImport("user32.dll")]
+    public static extern int GetWindowWord(IntPtr hwnd, int nIndex);
 
     [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Auto)]
     public static extern long GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
@@ -118,8 +142,24 @@ namespace Xeno.ApiTool.Api
     [StructLayout(LayoutKind.Sequential)]
     public struct POINT
     {
-      public Int32 x;
-      public Int32 y;
+      public Int32 X;
+      public Int32 Y;
+
+      public POINT(int x, int y)
+      {
+        this.X = x;
+        this.Y = y;
+      }
+
+      public static implicit operator System.Drawing.Point(POINT p)
+      {
+        return new System.Drawing.Point(p.X, p.Y);
+      }
+
+      public static implicit operator POINT(System.Drawing.Point p)
+      {
+        return new POINT(p.X, p.Y);
+      }
     }
   }
 }
