@@ -1,4 +1,11 @@
-﻿// Copyright (c) 2011 rubicon IT GmbH
+﻿/* Copyright Xeno Innovations, Inc. 2019
+ * Date:    2019-7-22
+ * Author:  Damian Suess
+ * File:    Program.cs
+ * Description:
+ *  
+ */
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
